@@ -1,7 +1,6 @@
 const Member = require('../models/Member');
 const Membership = require('../models/Membership');
 
-// GET /api/members
 const getMembers = async (req, res, next) => {
   try {
     const members = await Member.find();
@@ -11,7 +10,6 @@ const getMembers = async (req, res, next) => {
   }
 };
 
-// POST /api/members
 const createMember = async (req, res, next) => {
   try {
     const { firstName, lastName, phone, email } = req.body;
@@ -22,7 +20,6 @@ const createMember = async (req, res, next) => {
   }
 };
 
-// PUT /api/members/:id
 const updateMember = async (req, res, next) => {
   try {
     const member = await Member.findById(req.params.id);
@@ -42,7 +39,6 @@ const updateMember = async (req, res, next) => {
   }
 };
 
-// DELETE /api/members/:id
 const deleteMember = async (req, res, next) => {
   try {
     const member = await Member.findById(req.params.id);
@@ -51,7 +47,6 @@ const deleteMember = async (req, res, next) => {
       throw new Error('Adhérent non trouvé');
     }
 
-    // On bloque la suppression si un abonnement actif existe
     const activeMembership = await Membership.findOne({
       member: member._id,
       status: 'ACTIVE',

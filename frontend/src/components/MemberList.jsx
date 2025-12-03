@@ -24,7 +24,6 @@ const MemberList = () => {
   };
 
   const handleEdit = async (member) => {
-    // Edition très simple via prompt pour rester dans l'esprit TP
     const firstName = window.prompt('Prénom', member.firstName) || member.firstName;
     const lastName = window.prompt('Nom', member.lastName) || member.lastName;
     const phone = window.prompt('Téléphone', member.phone) || member.phone;

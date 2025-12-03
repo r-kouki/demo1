@@ -1,13 +1,11 @@
 const Membership = require('../models/Membership');
 const Plan = require('../models/Plan');
 
-// Petite fonction utilitaire pour calculer le statut selon la date de fin
 const computeStatus = (endDate) => {
   const today = new Date();
   return endDate >= today ? 'ACTIVE' : 'EXPIRED';
 };
 
-// GET /api/memberships
 const getMemberships = async (req, res, next) => {
   try {
     const memberships = await Membership.find()
@@ -15,7 +13,6 @@ const getMemberships = async (req, res, next) => {
       .populate('plan')
       .exec();
 
-    // On synchronise les statuts avec les dates
     const updates = memberships.map(async (m) => {
       const status = computeStatus(m.endDate);
       if (m.status !== status) {
@@ -32,7 +29,6 @@ const getMemberships = async (req, res, next) => {
   }
 };
 
-// POST /api/memberships
 const createMembership = async (req, res, next) => {
   try {
     const { member, plan, startDate } = req.body;
@@ -48,7 +44,6 @@ const createMembership = async (req, res, next) => {
       throw new Error('Plan non trouvé');
     }
 
-    // Vérifier qu'il n'y a pas déjà un abonnement actif pour ce membre
     const existingActive = await Membership.findOne({
       member,
       status: 'ACTIVE',
@@ -81,7 +76,6 @@ const createMembership = async (req, res, next) => {
   }
 };
 
-// DELETE /api/memberships/:id
 const deleteMembership = async (req, res, next) => {
   try {
     const membership = await Membership.findById(req.params.id);

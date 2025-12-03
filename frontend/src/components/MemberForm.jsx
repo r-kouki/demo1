@@ -17,7 +17,6 @@ const MemberForm = () => {
       setLastName('');
       setPhone('');
       setEmail('');
-      // On prévient la liste de se rafraîchir
       window.dispatchEvent(new Event('members:refresh'));
     } catch (error) {
       setMessage("Erreur lors de l'enregistrement");

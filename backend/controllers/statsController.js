@@ -2,7 +2,6 @@ const Member = require('../models/Member');
 const Plan = require('../models/Plan');
 const Membership = require('../models/Membership');
 
-// GET /api/stats/overview
 const getOverviewStats = async (req, res, next) => {
   try {
     const totalMembers = await Member.countDocuments();
@@ -18,7 +17,6 @@ const getOverviewStats = async (req, res, next) => {
       endDate: { $lt: today },
     });
 
-    // Revenu mensuel simple: somme des prix des plans actifs
     const activeList = await Membership.find({
       status: 'ACTIVE',
       endDate: { $gte: today },

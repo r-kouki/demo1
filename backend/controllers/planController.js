@@ -1,7 +1,6 @@
 const Plan = require('../models/Plan');
 const Membership = require('../models/Membership');
 
-// GET /api/plans
 const getPlans = async (req, res, next) => {
   try {
     const plans = await Plan.find();
@@ -11,7 +10,6 @@ const getPlans = async (req, res, next) => {
   }
 };
 
-// POST /api/plans
 const createPlan = async (req, res, next) => {
   try {
     const { name, durationMonths, price, description } = req.body;
@@ -22,7 +20,6 @@ const createPlan = async (req, res, next) => {
   }
 };
 
-// PUT /api/plans/:id
 const updatePlan = async (req, res, next) => {
   try {
     const plan = await Plan.findById(req.params.id);
@@ -42,7 +39,6 @@ const updatePlan = async (req, res, next) => {
   }
 };
 
-// DELETE /api/plans/:id
 const deletePlan = async (req, res, next) => {
   try {
     const plan = await Plan.findById(req.params.id);
@@ -51,7 +47,6 @@ const deletePlan = async (req, res, next) => {
       throw new Error('Plan non trouvé');
     }
 
-    // On interdit la suppression si le plan est utilisé par au moins un abonnement
     const membershipUsingPlan = await Membership.findOne({ plan: plan._id });
     if (membershipUsingPlan) {
       res.status(400);
