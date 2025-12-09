@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { protect } = require('../middleware/authMiddleware');
 const {
   getMembers,
   createMember,
@@ -7,7 +8,8 @@ const {
   deleteMember,
 } = require('../controllers/memberController');
 
-router.route('/').get(getMembers).post(createMember);
-router.route('/:id').put(updateMember).delete(deleteMember);
+// All routes are protected
+router.route('/').get(protect, getMembers).post(protect, createMember);
+router.route('/:id').put(protect, updateMember).delete(protect, deleteMember);
 
 module.exports = router;

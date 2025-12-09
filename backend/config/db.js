@@ -6,7 +6,8 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    process.exit(1);
+    console.log('⚠️  Server will run but database operations will fail until MongoDB connects.');
+    console.log('💡 Fix: Whitelist your IP in MongoDB Atlas Network Access');
   }
 };
 

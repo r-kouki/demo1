@@ -11,11 +11,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 const memberRoutes = require('./routes/memberRoutes');
 const planRoutes = require('./routes/planRoutes');
 const membershipRoutes = require('./routes/membershipRoutes');
 const statsRoutes = require('./routes/statsRoutes');
 
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/members', memberRoutes);
 app.use('/api/plans', planRoutes);
 app.use('/api/memberships', membershipRoutes);
